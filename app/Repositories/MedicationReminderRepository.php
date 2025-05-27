@@ -23,8 +23,8 @@ use Ramsey\Collection\Collection;
  *         property="week_day",
  *         type="string",
  *         nullable=true,
- *         enum={"SUNDAY", "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY"},
- *         example="MONDAY"
+ *         enum={"SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"},
+ *         example="MON"
  *     ),
  *     @OA\Property(
  *         property="quantity",
