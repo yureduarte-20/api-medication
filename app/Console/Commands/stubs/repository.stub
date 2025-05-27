@@ -1,0 +1,42 @@
+<?php
+
+namespace App\Repositories;
+use Illuminate\Validation\Rule;
+class {{className}} extends Repository
+{
+    /** Define the default repository rules
+     * @return array<string, Rule>
+     */
+    public function rules() : array
+    {
+        return [
+            // Define your validation rules here
+            // Example: 'name' => 'required|string|max:255',
+        ];
+    }
+
+    public function findById($id) : mixed
+    {
+        // TODO: Implement findById method
+    }
+
+    public function create(array $input) : mixed
+    {
+        // TODO: Implement create method
+    }
+
+    public function updateById($id, $input) : bool
+    {
+        // TODO: Implement updateById method
+    }
+
+    public function deleteById($id) : void
+    {
+        // TODO: Implement deleteById method
+    }
+
+    public function getAll($paginated = true) : mixed
+    {
+        // TODO: Implement getAll method
+    }
+}

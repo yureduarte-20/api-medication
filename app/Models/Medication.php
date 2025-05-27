@@ -3,11 +3,14 @@
 namespace App\Models;
 
 use App\MedicationApresentationEnum;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Medication extends Model
 {
+    use HasFactory;
+    protected $table = 'medications';
     protected $fillable = [
         'name',
         'user_id',
@@ -19,5 +22,9 @@ class Medication extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+    public function remimders()
+    {
+        return $this->hasMany(MedicationReminder::class);
     }
 }

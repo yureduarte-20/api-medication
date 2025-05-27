@@ -3,18 +3,16 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Medication;
-use App\Repositories\MedicationRepository;
+use App\Models\MedicationReminder;
+use App\Repositories\MedicationReminderRepository;
 use Illuminate\Http\Request;
 
-class MedicationController extends Controller
+class MedicationReminderController extends Controller
 {
     public function __construct(
-        private readonly MedicationRepository $repository
+        private readonly MedicationReminderRepository $repository
     )
-    {
-    }
-
+    {}
     public function index()
     {
         $paginated = request()->query('paginate', true);
@@ -24,32 +22,32 @@ class MedicationController extends Controller
             )
         );
     }
-
-    public function store(Request $request)
-    {
-        $data = $this->repository->create($request->all());
-        return response()->json($data, 201);
-    }
-
-    public function show($id): mixed
+    public function show($id)
     {
         return response()->json(
             $this->repository->findById($id)
         );
     }
-
+    public function store(Request $request)
+    {
+        return response()->json(
+            $this->repository->create($request->all())
+        , 201);
+    }
     public function update(Request $request, $id)
     {
-        $updated = $this->repository->updateById($id, $request->all());
-        if ($updated) return response()->json(null, 204);
+        $result = $this->repository->updateById($id, $request->all());
+        if($result) return response()->json(
+            null, 204
+        );
         return response()->json([
-            'message' => __('Unable to update :attribute', ['attribute' => __('medication')])
-        ], 422);
+            'message' => __('Unable to update :attribute', ['attribute' => __('validation.attributes.time')])
+        ],422);
     }
-
     public function destroy($id)
     {
         $this->repository->deleteById($id);
         return response()->json(null, 204);
     }
 }
+

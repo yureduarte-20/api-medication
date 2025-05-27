@@ -29,7 +29,7 @@ class MedicationRepository  extends Repository{
      */
     public function findById($id): mixed
     {
-        return Medication::whereUserId(auth()->user()->id)
+        return Medication::whereUserId(request()->user()->id)
             ->whereId($id)->firstOrFail();
     }
 
@@ -40,21 +40,21 @@ class MedicationRepository  extends Repository{
     public function create(array $input): mixed
     {
         $validated = $this->validate($input);
-        $validated['user_id'] = auth()->user()->id;
+        $validated['user_id'] = request()->user()->id;
         return Medication::create($validated);
     }
 
     public function updateById($id, $input): bool
     {
         $validated = $this->validate($input);
-        return Medication::whereUserId(auth()->user()->id)
+        return Medication::whereUserId(request()->user()->id)
             ->whereId($id)
             ->update($validated);
     }
 
     public function deleteById($id): void
     {
-        Medication::whereUserId(auth()->user()->id)
+        Medication::whereUserId(request()->user()->id)
             ->whereId($id)
             ->delete();
     }
@@ -65,7 +65,7 @@ class MedicationRepository  extends Repository{
      */
     public function getAll($paginated = true): mixed
     {
-        $userId = auth()->user()->id;
+        $userId = request()->user()->id;
         if($paginated){
             return Medication::whereUserId($userId)->paginate();
         }

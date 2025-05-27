@@ -1,0 +1,81 @@
+version: "3.7"
+services:
+  app:
+    build:
+      args:
+        user: ${USER}
+        uid: 1000
+      context: ./
+      dockerfile: ./docker-compose/app/Dockerfile
+    image: api_medication
+    container_name: api_medication-app
+    restart: unless-stopped
+    working_dir: /var/www/
+    volumes:
+      - ./:/var/www
+      # - ./docker-compose/php/ini/php.ini:/usr/local/etc/php/php.ini
+    environment:
+      - TZ=America/Santarem
+    networks:
+      api_medication:
+        ipv4_address: 172.16.83.4
+  #db:
+  #  image: postgres:13-alpine
+  #  ports:
+  #    - "5081:5432"
+  #  container_name: api_medication-db
+  #  restart: unless-stopped
+  #  environment:
+  #    POSTGRES_DB: ${DB_DATABASE}
+  #    POSTGRES_USER: ${DB_USERNAME}
+  #    POSTGRES_PASSWORD: ${DB_PASSWORD}
+  #  volumes:
+  #    - /home/dbdata/api_medication:/var/lib/postgresql/data
+  #  networks:
+  #    api_medication:
+  #      ipv4_address: 172.16.83.2
+  #job:
+  #  build:
+  #    args:
+  #      user: ${USER}
+  #      uid: 1000
+  #    context: ./
+  #    dockerfile: docker-compose/jobs/Dockerfile
+  #  image: api_medication/jobs
+  #  container_name: api_medication-job
+  #  restart: unless-stopped
+  #  depends_on:
+  #    - app
+  #  working_dir: /var/www/
+  #  networks:
+  #    api_medication:
+  #      ipv4_address: 172.16.83.5
+  #  volumes:
+  #    - ./:/var/www
+  #    - ./docker-compose/app/php.ini:/usr/local/etc/php/php.ini
+  #  environment:
+  #    - TZ=America/Santarem
+  #    - LOG_PATH=logs/jobs/laravel.log
+  nginx:
+    image: nginx:alpine
+    container_name: api_medication-nginx
+    restart: unless-stopped
+    expose:
+      - 80
+    ports:
+      - "8081:80"
+    volumes:
+      - ./:/var/www
+      - ./docker-compose/nginx:/etc/nginx/conf.d/
+    environment:
+      - TZ=America/Santarem
+    networks:
+      api_medication:
+        ipv4_address: 172.16.83.3
+
+networks:
+  api_medication:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.16.83.0/28
