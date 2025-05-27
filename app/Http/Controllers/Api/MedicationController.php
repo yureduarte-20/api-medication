@@ -61,7 +61,11 @@ class MedicationController extends Controller
     public function index()
     {
         $paginated = request()->query('paginate', true);
+        $paginated === 'true' and $paginated = true;
+        $paginated === 'false' and $paginated = false;
         $with_reminder = request()->query('with_reminder', false);
+        $with_reminder === 'true' and $with_reminder = true;
+        $with_reminder === 'false' and $with_reminder = false;
         return response()->json(
             $this->repository->getAll(
                 $paginated,
