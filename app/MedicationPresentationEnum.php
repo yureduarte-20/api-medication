@@ -3,14 +3,14 @@
 namespace App;
 /**
  * @OA\Schema(
- *     schema="MedicationApresentationEnum",
+ *     schema="MedicationPresentationEnum",
  *     type="string",
  *     enum={"CAPSULE", "TABLET", "SOLVENT"},
  *     example="TABLET",
  *     description="Apresentação do medicamento: CAPSULE-Cápsula, TABLET-Comprimido, SOLVENT-Solvente"
  * )
  */
-enum MedicationApresentationEnum
+enum MedicationPresentationEnum
 {
     case CAPSULE;
     case TABLET;

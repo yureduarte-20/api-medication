@@ -17,7 +17,7 @@ use Ramsey\Collection\Collection;
  *     @OA\Property(
  *         property="dose",
  *         type="string",
- *         example="1 comprimido"
+ *         example="100mg"
  *     ),
  *     @OA\Property(
  *         property="week_day",
@@ -48,7 +48,7 @@ use Ramsey\Collection\Collection;
  *         type="string",
  *         format="date",
  *         nullable=true,
- *         example="2023-12-31"
+ *         example="2025-06-29"
  *     ),
  *     @OA\Property(
  *         property="medication_id",

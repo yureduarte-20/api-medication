@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\MedicationApresentationEnum;
+use App\MedicationPresentationEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -77,7 +77,7 @@ class Medication extends Model
         'presentation'
     ];
     protected $casts = [
-        'presentation' => MedicationApresentationEnum::class
+        'presentation' => MedicationPresentationEnum::class
     ];
     public function user(): BelongsTo
     {

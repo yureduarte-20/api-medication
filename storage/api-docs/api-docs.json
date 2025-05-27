@@ -740,7 +740,7 @@
     },
     "components": {
         "schemas": {
-            "MedicationApresentationEnum": {
+            "MedicationPresentationEnum": {
                 "description": "Apresentação do medicamento: CAPSULE-Cápsula, TABLET-Comprimido, SOLVENT-Solvente",
                 "type": "string",
                 "enum": [
@@ -844,23 +844,22 @@
                         "description": "Dia da semana (para lembretes semanais)",
                         "type": "string",
                         "enum": [
-                            "SUNDAY",
-                            "MONDAY",
-                            "TUESDAY",
-                            "WEDNESDAY",
-                            "THURSDAY",
-                            "FRIDAY",
-                            "SATURDAY"
+                            "SUN",
+                            "MON",
+                            "TUE",
+                            "WED",
+                            "THU",
+                            "FRI",
+                            "SAT"
                         ],
-                        "example": "MONDAY",
+                        "example": "MON",
                         "nullable": true
                     },
                     "quantity": {
                         "description": "Quantidade da dose",
-                        "type": "number",
-                        "format": "float",
-                        "example": 1.5,
-                        "nullable": true
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
                     },
                     "hour": {
                         "description": "Hora do lembrete",
@@ -971,20 +970,20 @@
                 "properties": {
                     "dose": {
                         "type": "string",
-                        "example": "1 comprimido"
+                        "example": "100mg"
                     },
                     "week_day": {
                         "type": "string",
                         "enum": [
-                            "SUNDAY",
-                            "MONDAY",
-                            "TUESDAY",
-                            "WEDNESDAY",
-                            "THURSDAY",
-                            "FRIDAY",
-                            "SATURDAY"
+                            "SUN",
+                            "MON",
+                            "TUE",
+                            "WED",
+                            "THU",
+                            "FRI",
+                            "SAT"
                         ],
-                        "example": "MONDAY",
+                        "example": "MON",
                         "nullable": true
                     },
                     "quantity": {
@@ -1004,7 +1003,7 @@
                     "date": {
                         "type": "string",
                         "format": "date",
-                        "example": "2023-12-31",
+                        "example": "2025-06-29",
                         "nullable": true
                     },
                     "medication_id": {
@@ -1028,19 +1027,7 @@
                         "example": "Paracetamol"
                     },
                     "presentation": {
-                        "description": "Forma farmacêutica do medicamento",
-                        "type": "string",
-                        "example": "Comprimido 500mg"
-                    },
-                    "dose": {
-                        "description": "Dosagem recomendada",
-                        "type": "string",
-                        "example": "1 comprimido"
-                    },
-                    "instructions": {
-                        "description": "Instruções de uso",
-                        "type": "string",
-                        "example": "Tomar a cada 8 horas"
+                        "$ref": "#/components/schemas/MedicationPresentationEnum"
                     }
                 },
                 "type": "object"

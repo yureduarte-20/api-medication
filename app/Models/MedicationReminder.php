@@ -41,11 +41,11 @@ use Illuminate\Database\Eloquent\Model;
  *     ),
  *     @OA\Property(
  *         property="quantity",
- *         type="number",
- *         format="float",
- *         nullable=true,
+ *         type="integer",
+ *         format="int64",
+ *
  *         description="Quantidade da dose",
- *         example=1.5
+ *         example=1
  *     ),
  *     @OA\Property(
  *         property="hour",

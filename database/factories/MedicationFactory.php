@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\MedicationApresentationEnum;
+use App\MedicationPresentationEnum;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -19,7 +19,7 @@ class MedicationFactory extends Factory
     {
         return [
             'name' => $this->faker->name(),
-            'presentation' => MedicationApresentationEnum::values()[rand(0,2)]
+            'presentation' => MedicationPresentationEnum::values()[rand(0,2)]
         ];
     }
 }

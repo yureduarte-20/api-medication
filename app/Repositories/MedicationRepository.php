@@ -1,7 +1,7 @@
 <?php
 namespace App\Repositories;
 
-use App\MedicationApresentationEnum;
+use App\MedicationPresentationEnum;
 use App\Models\Medication;
 use Illuminate\Support\Collection;
 /**
@@ -18,23 +18,8 @@ use Illuminate\Support\Collection;
  *     ),
  *     @OA\Property(
  *         property="presentation",
- *         type="string",
- *         example="Comprimido 500mg",
+ *         ref="#/components/schemas/MedicationPresentationEnum",
  *         description="Forma farmacêutica do medicamento"
- *     ),
- *     @OA\Property(
- *         property="dose",
- *         type="string",
- *         example="1 comprimido",
- *         description="Dosagem recomendada"
- *
- *     ),
- *     @OA\Property(
- *         property="instructions",
- *         type="string",
- *         example="Tomar a cada 8 horas",
- *         description="Instruções de uso"
- *
  *     )
  * )
  */
@@ -44,7 +29,7 @@ class MedicationRepository  extends Repository{
     {
         return [
             'name' => 'required|string|min:3|max:255',
-            'presentation' => 'required|string|in:'.join(',', MedicationApresentationEnum::values()),
+            'presentation' => 'required|string|in:'.join(',', MedicationPresentationEnum::values()),
         ];
     }
     public function attributes()
