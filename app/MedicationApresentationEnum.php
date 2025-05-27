@@ -1,7 +1,15 @@
 <?php
 
 namespace App;
-
+/**
+ * @OA\Schema(
+ *     schema="MedicationApresentationEnum",
+ *     type="string",
+ *     enum={"CAPSULE", "TABLET", "SOLVENT"},
+ *     example="TABLET",
+ *     description="Apresentação do medicamento: CAPSULE-Cápsula, TABLET-Comprimido, SOLVENT-Solvente"
+ * )
+ */
 enum MedicationApresentationEnum
 {
     case CAPSULE;

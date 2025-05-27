@@ -8,7 +8,56 @@ use App\ReminderType;
 use App\WeekDay;
 use Illuminate\Validation\Rule;
 use Ramsey\Collection\Collection;
-
+/**
+ * @OA\Schema(
+ *     schema="MedicationReminderRequest",
+ *     type="object",
+ *     title="Medication Reminder Request",
+ *     required={"dose", "hour", "medication_id", "reminder_type"},
+ *     @OA\Property(
+ *         property="dose",
+ *         type="string",
+ *         example="1 comprimido"
+ *     ),
+ *     @OA\Property(
+ *         property="week_day",
+ *         type="string",
+ *         nullable=true,
+ *         enum={"SUNDAY", "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY"},
+ *         example="MONDAY"
+ *     ),
+ *     @OA\Property(
+ *         property="quantity",
+ *         type="number",
+ *         format="float",
+ *         nullable=true,
+ *         example=1.5
+ *     ),
+ *     @OA\Property(
+ *         property="hour",
+ *         type="string",
+ *         format="time",
+ *         example="08:00"
+ *     ),
+ *     @OA\Property(
+ *         property="reminder_type",
+ *         ref="#/components/schemas/ReminderType"
+ *     ),
+ *     @OA\Property(
+ *         property="date",
+ *         type="string",
+ *         format="date",
+ *         nullable=true,
+ *         example="2023-12-31"
+ *     ),
+ *     @OA\Property(
+ *         property="medication_id",
+ *         type="integer",
+ *         format="int64",
+ *         example=1
+ *     )
+ * )
+ */
 class MedicationReminderRepository extends Repository
 {
     /** Define the default repository rules
@@ -66,7 +115,7 @@ class MedicationReminderRepository extends Repository
         return MedicationReminder::where([
             'medication_id' => $medication_id,
             'user_id' => auth()->user()->id
-        ])->get();
+        ])->with(['medication'])->get();
     }
 
     public function create(array $input): mixed
@@ -95,9 +144,10 @@ class MedicationReminderRepository extends Repository
 
     public function getAll($paginated = true): mixed
     {
+        $query = MedicationReminder::where('user_id', auth()->user()->id);
         if ($paginated) {
-            return MedicationReminder::where('user_id', auth()->user()->id)->paginate();
+            return $query->paginate();
         }
-        return MedicationReminder::where('user_id', auth()->user()->id)->get();
+        return $query->get();
     }
 }

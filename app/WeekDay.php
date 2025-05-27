@@ -1,7 +1,15 @@
 <?php
 
 namespace App;
-
+/**
+ * @OA\Schema(
+ *     schema="WeekDay",
+ *     type="string",
+ *     enum={"MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"},
+ *     example="MON",
+ *     description="Dias da semana: MON-SEG, TUE-TER, WED-QUA, THU-QUI, FRI-SEX, SAT-SAB, SUN-DOM"
+ * )
+ */
 enum WeekDay
 {
     case MON;

@@ -2,6 +2,15 @@
 
 namespace App;
 
+/**
+ * @OA\Schema(
+ *     schema="ReminderType",
+ *     type="string",
+ *     enum={"SCHEDULED", "SINGLE"},
+ *     example="SCHEDULED",
+ *     description="Tipo de lembrete: AGENDADO (recorrente) ou ÚNICO (data específica)"
+ * )
+ */
 enum ReminderType
 {
     case SCHEDULED;

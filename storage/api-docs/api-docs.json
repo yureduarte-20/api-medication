@@ -1,0 +1,1087 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API de Medicamentos",
+        "description": "API para gerenciamento de medicamentos e lembretes",
+        "contact": {
+            "name": "Equipe de Suporte",
+            "email": "suporte@exemplo.com"
+        },
+        "license": {
+            "name": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8081",
+            "description": "API Server"
+        }
+    ],
+    "paths": {
+        "/api/v1/login": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Autenticar usuário",
+                "description": "Realiza o login e retorna um token de acesso",
+                "operationId": "9eedd2c8ba39421bb7604c425ed808c4",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "usuario@exemplo.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "senha123"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Login realizado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "accessToken": {
+                                            "type": "string",
+                                            "example": "1|abcdefghijklmnopqrstuvwxyz"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Erro de validação",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The given data was invalid."
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "additionalProperties": {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/register": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Registrar novo usuário",
+                "description": "Cria uma nova conta de usuário e retorna um token de acesso",
+                "operationId": "980f5903c7faceb2bd49bbd3cc417edd",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "email",
+                                    "password",
+                                    "password_confirmation",
+                                    "birth_date"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Fulano de Tal"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "novo@usuario.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "senhaSegura123"
+                                    },
+                                    "password_confirmation": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "senhaSegura123"
+                                    },
+                                    "birth_date": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "1990-01-01"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Usuário criado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "User created successfully!"
+                                        },
+                                        "user": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Fulano de Tal"
+                                                },
+                                                "email": {
+                                                    "type": "string",
+                                                    "example": "novo@usuario.com"
+                                                },
+                                                "birth_date": {
+                                                    "type": "string",
+                                                    "format": "date",
+                                                    "example": "1990-01-01"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "accessToken": {
+                                            "type": "string",
+                                            "example": "2|abcdefghijklmnopqrstuvwxyz"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Erro de validação",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The given data was invalid."
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "additionalProperties": {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/medication": {
+            "get": {
+                "tags": [
+                    "Medications"
+                ],
+                "summary": "Lista todos os medicamentos",
+                "description": "Retorna uma lista de medicamentos, podendo ser paginada ou não",
+                "operationId": "3de9f9ee05c805dbb15897587311177d",
+                "parameters": [
+                    {
+                        "name": "paginate",
+                        "in": "query",
+                        "description": "Indica se o resultado deve ser paginado",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean",
+                            "default": true
+                        }
+                    },
+                    {
+                        "name": "with_reminder",
+                        "in": "query",
+                        "description": "Indica se deve incluir os lembretes associados",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean",
+                            "default": false
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lista de medicamentos",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Medication"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Medications"
+                ],
+                "summary": "Cria um novo medicamento",
+                "description": "Armazena um novo medicamento no banco de dados",
+                "operationId": "f22b405345023cc9cf097afa6a1d241a",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/MedicationRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Medicamento criado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Medication"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Erro de validação",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The given data was invalid."
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "additionalProperties": {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/medication/{id}": {
+            "get": {
+                "tags": [
+                    "Medications"
+                ],
+                "summary": "Exibe um medicamento específico",
+                "description": "Retorna os detalhes de um medicamento pelo seu ID",
+                "operationId": "e7cd3835a1ea2a49709fd421a0bababf",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do medicamento",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Detalhes do medicamento",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Medication"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Medicamento não encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Medication not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Medications"
+                ],
+                "summary": "Atualiza um medicamento existente",
+                "description": "Atualiza os dados de um medicamento pelo seu ID",
+                "operationId": "d11f8900cae22603ddb181e68837eb9c",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do medicamento a ser atualizado",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/MedicationRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "204": {
+                        "description": "Medicamento atualizado com sucesso"
+                    },
+                    "404": {
+                        "description": "Medicamento não encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Medication not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Erro ao atualizar",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unable to update medication"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Medications"
+                ],
+                "summary": "Exclui um medicamento",
+                "description": "Remove um medicamento do banco de dados pelo seu ID",
+                "operationId": "5032be9d4867d6f2ac4305b33903d39d",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do medicamento a ser excluído",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Medicamento excluído com sucesso"
+                    },
+                    "404": {
+                        "description": "Medicamento não encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Medication not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/medication-reminder": {
+            "get": {
+                "tags": [
+                    "Medication Reminders"
+                ],
+                "summary": "Listar lembretes de medicamentos",
+                "description": "Retorna lista de lembretes, podendo filtrar por medication_id",
+                "operationId": "ec60e7d3097796e52a682da92dd7a0e6",
+                "parameters": [
+                    {
+                        "name": "paginate",
+                        "in": "query",
+                        "description": "Retornar paginado (true/false)",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean",
+                            "default": "true"
+                        }
+                    },
+                    {
+                        "name": "medication_id",
+                        "in": "query",
+                        "description": "ID do medicamento para filtrar",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lista de lembretes",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/MedicationReminder"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Não autorizado"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Medication Reminders"
+                ],
+                "summary": "Criar novo lembrete",
+                "description": "Cria um novo lembrete de medicamento",
+                "operationId": "f0785b62c0bf2038fa47722b60f3472a",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/MedicationReminderRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Lembrete criado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/MedicationReminder"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Erro de validação"
+                    },
+                    "401": {
+                        "description": "Não autorizado"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/medication-reminder/{id}": {
+            "get": {
+                "tags": [
+                    "Medication Reminders"
+                ],
+                "summary": "Obter lembrete específico",
+                "description": "Retorna detalhes de um lembrete pelo ID",
+                "operationId": "26311962757a76e48dea816f8fc9a466",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do lembrete",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Detalhes do lembrete",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/MedicationReminder"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Lembrete não encontrado"
+                    },
+                    "401": {
+                        "description": "Não autorizado"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Medication Reminders"
+                ],
+                "summary": "Atualizar lembrete",
+                "description": "Atualiza um lembrete existente",
+                "operationId": "d85f87b8d89d156ca749e6e75d4596d2",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do lembrete",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/MedicationReminderRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "204": {
+                        "description": "Lembrete atualizado com sucesso"
+                    },
+                    "422": {
+                        "description": "Erro ao atualizar",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Não autorizado"
+                    },
+                    "404": {
+                        "description": "Lembrete não encontrado"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Medication Reminders"
+                ],
+                "summary": "Excluir lembrete",
+                "description": "Remove um lembrete existente",
+                "operationId": "25d26abd829d56c01cacabe5d5308874",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do lembrete",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Lembrete excluído com sucesso"
+                    },
+                    "401": {
+                        "description": "Não autorizado"
+                    },
+                    "404": {
+                        "description": "Lembrete não encontrado"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "MedicationApresentationEnum": {
+                "description": "Apresentação do medicamento: CAPSULE-Cápsula, TABLET-Comprimido, SOLVENT-Solvente",
+                "type": "string",
+                "enum": [
+                    "CAPSULE",
+                    "TABLET",
+                    "SOLVENT"
+                ],
+                "example": "TABLET"
+            },
+            "Medication": {
+                "title": "Medication",
+                "description": "Medication model representation",
+                "required": [
+                    "id",
+                    "name",
+                    "user_id",
+                    "presentation"
+                ],
+                "properties": {
+                    "id": {
+                        "description": "ID do medicamento",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "name": {
+                        "description": "Nome do medicamento",
+                        "type": "string",
+                        "example": "Paracetamol"
+                    },
+                    "user_id": {
+                        "description": "ID do usuário dono do medicamento",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "presentation": {
+                        "description": "Forma de apresentação do medicamento",
+                        "type": "string",
+                        "enum": [
+                            "SOLVENT",
+                            "CAPSULE",
+                            "TABLET"
+                        ],
+                        "example": "CAPSULE"
+                    },
+                    "created_at": {
+                        "description": "Data de criação",
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2023-01-01T12:00:00Z"
+                    },
+                    "updated_at": {
+                        "description": "Data de atualização",
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2023-01-01T12:00:00Z"
+                    },
+                    "user": {
+                        "$ref": "#/components/schemas/User"
+                    },
+                    "reminders": {
+                        "description": "Lembretes associados ao medicamento",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/MedicationReminder"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "MedicationReminder": {
+                "title": "Medication Reminder",
+                "description": "Modelo de lembrete para medicamentos",
+                "required": [
+                    "dose",
+                    "user_id",
+                    "hour",
+                    "medication_id",
+                    "reminder_type"
+                ],
+                "properties": {
+                    "id": {
+                        "description": "ID do lembrete",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "dose": {
+                        "description": "Dose a ser tomada",
+                        "type": "string",
+                        "example": "1 comprimido"
+                    },
+                    "user_id": {
+                        "description": "ID do usuário",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "week_day": {
+                        "description": "Dia da semana (para lembretes semanais)",
+                        "type": "string",
+                        "enum": [
+                            "SUNDAY",
+                            "MONDAY",
+                            "TUESDAY",
+                            "WEDNESDAY",
+                            "THURSDAY",
+                            "FRIDAY",
+                            "SATURDAY"
+                        ],
+                        "example": "MONDAY",
+                        "nullable": true
+                    },
+                    "quantity": {
+                        "description": "Quantidade da dose",
+                        "type": "number",
+                        "format": "float",
+                        "example": 1.5,
+                        "nullable": true
+                    },
+                    "hour": {
+                        "description": "Hora do lembrete",
+                        "type": "string",
+                        "format": "time",
+                        "example": "08:00"
+                    },
+                    "reminder_type": {
+                        "$ref": "#/components/schemas/ReminderType"
+                    },
+                    "date": {
+                        "description": "Data específica (para lembretes de data específica)",
+                        "type": "string",
+                        "format": "date",
+                        "example": "2023-12-31",
+                        "nullable": true
+                    },
+                    "medication_id": {
+                        "description": "ID do medicamento relacionado",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "created_at": {
+                        "description": "Data de criação",
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2023-01-01T12:00:00Z"
+                    },
+                    "updated_at": {
+                        "description": "Data de atualização",
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2023-01-01T12:00:00Z"
+                    },
+                    "medication": {
+                        "$ref": "#/components/schemas/Medication"
+                    },
+                    "user": {
+                        "$ref": "#/components/schemas/User"
+                    }
+                },
+                "type": "object"
+            },
+            "User": {
+                "title": "User",
+                "description": "User model representation",
+                "required": [
+                    "id",
+                    "name",
+                    "password",
+                    "birth_date"
+                ],
+                "properties": {
+                    "id": {
+                        "description": "ID do medicamento",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "name": {
+                        "description": "Nome",
+                        "type": "string",
+                        "example": "Paracetamol"
+                    },
+                    "email": {
+                        "description": "Email",
+                        "type": "string",
+                        "example": "example@email.com"
+                    },
+                    "password": {
+                        "description": "Senha do usuário",
+                        "type": "string",
+                        "example": "example@email.com"
+                    },
+                    "created_at": {
+                        "description": "Data de criação",
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2023-01-01T12:00:00Z"
+                    },
+                    "updated_at": {
+                        "description": "Data de atualização",
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2023-01-01T12:00:00Z"
+                    }
+                },
+                "type": "object"
+            },
+            "ReminderType": {
+                "description": "Tipo de lembrete: AGENDADO (recorrente) ou ÚNICO (data específica)",
+                "type": "string",
+                "enum": [
+                    "SCHEDULED",
+                    "SINGLE"
+                ],
+                "example": "SCHEDULED"
+            },
+            "MedicationReminderRequest": {
+                "title": "Medication Reminder Request",
+                "required": [
+                    "dose",
+                    "hour",
+                    "medication_id",
+                    "reminder_type"
+                ],
+                "properties": {
+                    "dose": {
+                        "type": "string",
+                        "example": "1 comprimido"
+                    },
+                    "week_day": {
+                        "type": "string",
+                        "enum": [
+                            "SUNDAY",
+                            "MONDAY",
+                            "TUESDAY",
+                            "WEDNESDAY",
+                            "THURSDAY",
+                            "FRIDAY",
+                            "SATURDAY"
+                        ],
+                        "example": "MONDAY",
+                        "nullable": true
+                    },
+                    "quantity": {
+                        "type": "number",
+                        "format": "float",
+                        "example": 1.5,
+                        "nullable": true
+                    },
+                    "hour": {
+                        "type": "string",
+                        "format": "time",
+                        "example": "08:00"
+                    },
+                    "reminder_type": {
+                        "$ref": "#/components/schemas/ReminderType"
+                    },
+                    "date": {
+                        "type": "string",
+                        "format": "date",
+                        "example": "2023-12-31",
+                        "nullable": true
+                    },
+                    "medication_id": {
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    }
+                },
+                "type": "object"
+            },
+            "MedicationRequest": {
+                "title": "Medication Request",
+                "required": [
+                    "name",
+                    "presentation"
+                ],
+                "properties": {
+                    "name": {
+                        "description": "Nome do medicamento",
+                        "type": "string",
+                        "example": "Paracetamol"
+                    },
+                    "presentation": {
+                        "description": "Forma farmacêutica do medicamento",
+                        "type": "string",
+                        "example": "Comprimido 500mg"
+                    },
+                    "dose": {
+                        "description": "Dosagem recomendada",
+                        "type": "string",
+                        "example": "1 comprimido"
+                    },
+                    "instructions": {
+                        "description": "Instruções de uso",
+                        "type": "string",
+                        "example": "Tomar a cada 8 horas"
+                    }
+                },
+                "type": "object"
+            },
+            "WeekDay": {
+                "description": "Dias da semana: MON-SEG, TUE-TER, WED-QUA, THU-QUI, FRI-SEX, SAT-SAB, SUN-DOM",
+                "type": "string",
+                "enum": [
+                    "MON",
+                    "TUE",
+                    "WED",
+                    "THU",
+                    "FRI",
+                    "SAT",
+                    "SUN"
+                ],
+                "example": "MON"
+            }
+        },
+        "securitySchemes": {
+            "sanctum": {
+                "type": "apiKey",
+                "description": "Enter token in format (Bearer <token>)",
+                "name": "Authorization",
+                "in": "header",
+                "prefix": "Bearer "
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Authentication",
+            "description": "Operações de autenticação e registro de usuários"
+        },
+        {
+            "name": "Medications",
+            "description": "Operações relacionadas a medicamentos"
+        },
+        {
+            "name": "Medication Reminders",
+            "description": "Gerenciamento de lembretes de medicamentos"
+        }
+    ]
+}
