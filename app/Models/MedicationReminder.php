@@ -36,8 +36,8 @@ use Illuminate\Database\Eloquent\Model;
  *         type="string",
  *         nullable=true,
  *         description="Dia da semana (para lembretes semanais)",
- *         enum={"SUNDAY", "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY"},
- *         example="MONDAY"
+ *         enum={"SUN", "MON", "TUES", "WEDNES", "THURS", "FRI", "SATUR"},
+ *         example="MON"
  *     ),
  *     @OA\Property(
  *         property="quantity",
