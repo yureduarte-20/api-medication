@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\ProfileController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -21,5 +22,11 @@ Route::prefix('v1')->group(function () {
                 'create',
                 'edit'
             ]);
+        Route::controller(ProfileController::class)
+            ->name('profile.')
+            ->group(function () {
+                Route::put('profile/', 'update')->name('update');
+                Route::put('profile/password', 'update_password')->name('update_password');
+            });
     });
 });
