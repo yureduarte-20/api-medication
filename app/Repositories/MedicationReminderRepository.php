@@ -144,7 +144,7 @@ class MedicationReminderRepository extends Repository
 
     public function getAll($paginated = true): mixed
     {
-        $query = MedicationReminder::where('user_id', auth()->user()->id);
+        $query = MedicationReminder::with(['medication'])->where('user_id', auth()->user()->id);
         if ($paginated) {
             return $query->paginate();
         }
